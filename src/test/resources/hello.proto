@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package hello;
+
+option java_multiple_files = true;
+option java_package = "org.apache.jmeter.protocol.grpc.sampler.test";
+
+message HelloRequest {
+  string name = 1;
+  int32 age = 2;
+  repeated string hobbies = 3;
+  map<string, string> tags = 4;
+}
+
+message HelloResponse {
+  string greeting = 1;
+  int32 code = 2;
+}
+
+service HelloService {
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+  rpc SayHelloStream (HelloRequest) returns (stream HelloResponse);
+  rpc SayHelloClientStream (stream HelloRequest) returns (HelloResponse);
+  rpc SayHelloBidiStream (stream HelloRequest) returns (stream HelloResponse);
+}
